@@ -1,0 +1,10 @@
+.head {
+    display: flex;
+    background-color: #721313;
+}
+
+.head img {
+    margin: 10px auto;
+    width: 150px;
+    background-color: white;
+}
