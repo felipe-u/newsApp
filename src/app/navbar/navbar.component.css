@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.custom-select {
+    position: relative;
+    width: 300px;
+}
+
+.custom-select select {
+    display: inline-block;
+    width: 100%;
+    font-size: large;
+    text-align: center;
+    height: 40px;
+    appearance: none;
+    background-color: #1e1a1a;
+    color: grey;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    text-align-last: center;
+    cursor: pointer;
+}
+
+.custom-select select option {
+    text-align: center;
+    cursor: pointer;
+}
+
+.custom-select select option:hover {
+    background-color: #721313;
+}
+
+.custom-select::before {
+    content: "";
+    position: absolute;
+    top: 70%;
+    left: 10px;
+    width: 20px;
+    height: 3px;
+    background-color: grey;
+    transform: translateY(-10px);
+    box-shadow: 0 6px grey, 0 -6px grey;
+    pointer-events: none;
+}
+
+.search-container {
+    margin-left: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1a1a;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.search-container img {
+    width: 20px;
+    filter: invert(0.5);
+}
+
+.search-container img:hover {
+    filter: invert(0.7);
+}
