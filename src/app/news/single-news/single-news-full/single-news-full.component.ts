@@ -18,6 +18,10 @@ export class SingleNewsFullComponent {
     )
   );
 
+  get newsPubDate() {
+    return new Date(Date.parse(this.news().published_at));
+  }
+
   onSearch() {
     console.log(this.newsService.news.find(
       singleN => singleN.id === this.newsId()

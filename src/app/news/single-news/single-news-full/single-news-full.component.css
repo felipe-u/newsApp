@@ -1,11 +1,20 @@
 .container {
-
+    margin-left: 25px;
 }
 
 img {
-    width: 80%;
+    width: 70%;
 }
 
-p {
-    
+#pubDate {
+    color: gray;
+    font-size: 0.8em;
+    margin-bottom: 35px;
+}
+
+#newsDesc {
+    margin-top: 35px;
+    margin-bottom: 100px;
+    text-align: justify;
+    width: 85%;
 }

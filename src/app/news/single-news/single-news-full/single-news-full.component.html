@@ -1,6 +1,7 @@
 <div class="container">
     <h2>{{ news().title }}</h2>
-    <img [src]="news().image_url" alt="">
+    <p id="pubDate">Published at {{newsPubDate}}</p>
     <hr>
-    <p>{{ news().description }}</p>
+    <img [src]="news().image_url" alt="">
+    <p id="newsDesc">{{ news().description }}</p>
 </div>
