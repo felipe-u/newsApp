@@ -14,8 +14,8 @@ export class SingleNewsFullComponent {
   newsId = input.required<string>();
   private newsService = inject(NewsService);
   news = computed(
-    ()=> this.newsService.news.find(
-      singleN => singleN.id === this.newsId()
+    ()=> this.newsService.loadedTopNews().find(
+      singleN => singleN.uuid === this.newsId()
     )
   );
 
@@ -24,8 +24,8 @@ export class SingleNewsFullComponent {
   }
 
   onSearch() {
-    console.log(this.newsService.news.find(
-      singleN => singleN.id === this.newsId()
+    console.log(this.newsService.loadedTopNews().find(
+      singleN => singleN.uuid === this.newsId()
     ).description);
   }
 }

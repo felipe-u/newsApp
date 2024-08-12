@@ -1,6 +1,6 @@
 <div class="container">
     <div class="news-container">
-        @for (singleNews of news; track singleNews) {
+        @for (singleNews of topNews(); track singleNews) {
             <app-single-news [singleNews]="singleNews"/>
             <br><br>
         }

@@ -1,22 +1,23 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, OnInit, signal } from '@angular/core';
 import { News } from './news.model';
+import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs';
+
+const apiEndpoint = 'https://api.thenewsapi.com/v1/news/';
+const apiToken = 'h1Un3ZbRws1mh8yVg8ebFdwoJdiQytMylHE01vnP';
 
 @Injectable({ providedIn: 'root' })
 export class NewsService {
-    news: News[] =[
-        {
-            id: '1',
-            title: 'Just a test news',
-            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus malesuada nibh a dictum condimentum. Nullam tristique bibendum gravida. Cras a nisi ullamcorper, accumsan diam et, consectetur elit. Nulla id ipsum quis lorem feugiat maximus. Praesent faucibus lacus sapien, quis dignissim ipsum vestibulum vel. Mauris at porta purus, in tincidunt massa. In ac aliquet quam. Aliquam et tortor nisi. Nullam convallis mi vulputate orci rutrum, ac tempor sem auctor. Vivamus ultrices tincidunt mauris eget malesuada. Ut luctus lectus at odio malesuada ornare. Integer a felis ut ante imperdiet euismod a vitae odio. Fusce gravida aliquam nisi non tempor. `,
-            image_url: 'https://cdn.uanews.arizona.edu/s3fs-public/styles/az_large/public/Olympics_pic_2021_banner_png.png',
-            published_at: '2024-08-12T13:23:13.000000Z'
-        },
-        {
-            id: '2',
-            title: 'Just a test news 2',
-            description: `This is simply a test, a fake news you could say. Although, later I'll add some real news. `,
-            image_url: 'https://aws-modapedia.vogue.es/prod/designs/v1/assets/1200x628/1466.jpg',
-            published_at: '2024-08-12T13:29:41.000000Z'
-        }
-    ]
+    private httpClient = inject(HttpClient);
+    private topNews = signal([]);
+    loadedTopNews = this.topNews.asReadonly();
+
+    fetchTopNews() {
+        return this.httpClient.get<{ data: any }>
+            (apiEndpoint + 'top?api_token=' + apiToken + '&locale=us&limit=3')
+            .pipe(
+                map((news) => news.data),
+                tap((news) => this.topNews.set(news))
+            )
+    }
 }
