@@ -1,1 +1,8 @@
-<p>news works!</p>
+<div class="container">
+    <div class="news-container">
+        @for (singleNews of news; track singleNews) {
+            <app-single-news [singleNews]="singleNews"/>
+            <br><br>
+        }
+    </div>
+</div>

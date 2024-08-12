@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { News } from '../news.model';
 
 @Component({
   selector: 'app-single-news',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './single-news.component.css'
 })
 export class SingleNewsComponent {
-
+  @Input() singleNews: News;
 }
