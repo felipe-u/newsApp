@@ -8,5 +8,17 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  showSearchBar = false;
 
+  search() {
+    if (!this.showSearchBar) {
+      this.showSearchBar = true;
+    } else {
+      alert('Working on it.')
+    }
+  }
+
+  onHideSearchBar() {
+    this.showSearchBar = false;
+  }
 }

@@ -1,13 +1,25 @@
 <div class="container">
     <nav class="custom-select">
-        <select name="category" id="category">
-            <option value="general">General</option>
-            <option value="sports">Sports</option>
-            <option value="general">Politics</option>
-            <option value="entertainment">Entertainment</option>
-        </select>
+        @if (!showSearchBar) {
+            <select name="category" id="category">
+                <option value="general">General</option>
+                <option value="sports">Sports</option>
+                <option value="general">Politics</option>
+                <option value="entertainment">Entertainment</option>
+            </select>
+        } @else {
+            <div class="searcher-container">
+                <div class="close-search">
+                    <button (click)="onHideSearchBar()">X</button>
+                </div>
+                <input type="text">
+            </div>
+        }
     </nav>
-    <div class="search-container">
+    <div class="search-container" (click)="search()">
         <img src="assets/search-icon.png" alt="">
     </div>
 </div>
+<!-- <div class="search-box">
+    <input type="text" name="search" id="search">
+</div> -->
