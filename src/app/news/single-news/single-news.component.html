@@ -1,6 +1,8 @@
 <div class="container">
-    <div class="img-container">
-        <img [src]="singleNews.image_url" alt="">
-    </div>
-    <h3>{{ singleNews.title }}</h3>
+    <a [routerLink]="['./', singleNews.id]">
+        <div class="img-container">
+            <img [src]="singleNews.image_url" alt="">
+        </div>
+        <h3>{{ singleNews.title }}</h3>
+    </a>
 </div>
