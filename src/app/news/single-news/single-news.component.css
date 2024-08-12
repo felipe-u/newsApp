@@ -1,8 +1,9 @@
 .container {
-    width: 350px;
+    width: 450px;
     height: 150px;
     background-color: #721313;
     border-radius: 15px;
+    border: 1px solid black;
 }
 
 .container .img-container {
@@ -18,5 +19,9 @@ img {
 
 a {
     text-decoration: none;
-    color: black
+    color: white;
+}
+
+h4 {
+    margin-top: 5px;
 }

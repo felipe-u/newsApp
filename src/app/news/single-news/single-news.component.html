@@ -3,6 +3,6 @@
         <div class="img-container">
             <img [src]="singleNews.image_url" alt="">
         </div>
-        <h3>{{ singleNews.title }}</h3>
+        <h4>{{ singleNews.title | short:100}}</h4>
     </a>
 </div>
