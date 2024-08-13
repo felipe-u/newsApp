@@ -1,0 +1,16 @@
+.container {
+    display: grid;
+    width: 100%;
+}
+
+img {
+    margin: 80px auto;
+    width: 200px;
+}
+
+p {
+    margin: 0 auto 50px auto;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bolder;
+}
