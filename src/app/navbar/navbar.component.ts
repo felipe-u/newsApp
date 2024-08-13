@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  private router = inject(Router);
   showSearchBar = false;
-
+  
   search() {
     if (!this.showSearchBar) {
       this.showSearchBar = true;
@@ -20,5 +22,10 @@ export class NavbarComponent {
 
   onHideSearchBar() {
     this.showSearchBar = false;
+  }
+
+  onCategoryChange(event: Event) {
+    const category = (event.target as HTMLSelectElement).value;
+    this.router.navigate(['news/filter'], {queryParams: {category: category}});
   }
 }

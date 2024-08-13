@@ -1,12 +1,18 @@
 <div class="container">
     <nav class="custom-select">
         @if (!showSearchBar) {
-            <select name="category" id="category">
+            <select name="category" id="category" 
+            (change)="onCategoryChange($event)">
                 <option selected="selected" disabled hidden>Categories</option>
                 <option value="general">General</option>
+                <option value="science">Science</option>
                 <option value="sports">Sports</option>
-                <option value="general">Politics</option>
+                <option value="health">Health</option>
                 <option value="entertainment">Entertainment</option>
+                <option value="tech">Tech</option>
+                <option value="politics">Politics</option>
+                <option value="food">Food</option>
+                <option value="travel">Travel</option>
             </select>
         } @else {
             <div class="searcher-container">

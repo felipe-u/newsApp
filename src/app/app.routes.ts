@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { NewsComponent } from "./news/news.component";
+import { NewsComponent, resolveCategory } from "./news/news.component";
 import { SingleNewsFullComponent } from "./news/single-news/single-news-full/single-news-full.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 
@@ -14,6 +14,19 @@ export const routes: Routes = [
         path: 'news',
         component: NewsComponent,
         title: 'Learning Purpose News',
+        data: {
+            onCategory: false
+        }
+    },
+    {
+        path: 'news/filter',
+        component: NewsComponent,
+        data: {
+            onCategory: true
+        },
+        resolve: {
+            category: resolveCategory
+        }
     },
     {
         path: 'news/:newsId',
