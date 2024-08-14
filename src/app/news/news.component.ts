@@ -18,17 +18,22 @@ export class NewsComponent implements OnInit {
   category = input.required<string>();
   categoryNews = signal<News[]>(undefined);
   isThereAnError = false;
+  onFetching: boolean;
 
   ngOnInit(): void {
+    this.onFetching = true;
+    console.log('fetching');
     if (!this.onCategory()) {
       this.newsService.fetchTopNews()
         .subscribe({
           next: (data) => {
             this.topNews.set(data);
             this.isThereAnError = false;
+            this.onFetching = false;
           },
           error: () => {
             this.isThereAnError = true;
+            this.onFetching = false;
           }
         })
     } else {
@@ -37,9 +42,12 @@ export class NewsComponent implements OnInit {
           next: (data) => {
             this.categoryNews.set(data);
             this.isThereAnError = false;
+            this.onFetching = false;
+
           },
           error: () => {
             this.isThereAnError = true;
+            this.onFetching = false;
           }
         });
     }
