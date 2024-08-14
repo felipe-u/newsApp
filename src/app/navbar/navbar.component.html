@@ -19,7 +19,7 @@
                 <div class="close-search">
                     <button (click)="onHideSearchBar()">X</button>
                 </div>
-                <input type="text">
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Find something...">
             </div>
         }
     </nav>

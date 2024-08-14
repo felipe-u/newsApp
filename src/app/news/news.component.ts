@@ -14,16 +14,16 @@ import { ResolveFn } from '@angular/router';
 export class NewsComponent implements OnInit {
   private newsService = inject(NewsService);
   topNews = signal<News[]>(undefined);
-  onCategory = input.required<boolean>();
+  onTopNews = input.required<boolean>();
   category = input.required<string>();
-  categoryNews = this.newsService.news;
+  otherNews = this.newsService.news;
   isThereAnError = this.newsService.isThereAnError;
   onFetching = this.newsService.onFetching;
 
   ngOnInit(): void {
     this.onFetching.set(true);
     console.log('fetching');
-    if (!this.onCategory()) {
+    if (this.onTopNews()) {
       this.newsService.fetchTopNews()
         .subscribe({
           next: (data) => {
@@ -59,4 +59,25 @@ export const resolveCategory: ResolveFn<string> = (
     });
 
   return category;
+}
+
+export const resolveSearch: ResolveFn<string> = (
+  activatedRoute, routerState
+) => {
+  const newsService = inject(NewsService);
+  const searchTerm = activatedRoute.queryParamMap.get('search');
+  newsService.fetchNewsForSearchTerm(searchTerm)
+    .subscribe({
+      next: () => {
+        newsService.isThereAnError.set(false);
+        newsService.onFetching.set(false);
+
+      },
+      error: () => {
+        newsService.isThereAnError.set(true);
+        newsService.onFetching.set(false);
+      }
+    });
+
+  return searchTerm;
 }
