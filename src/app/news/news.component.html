@@ -1,15 +1,22 @@
 <div class="container">
-    <div class="news-container">
-        @if(!onCategory()) {
-            @for (singleNews of topNews(); track singleNews) {
-                <app-single-news [singleNews]="singleNews" />
-                <br><br>
+    @if(!isThereAnError) {
+        <div class="news-container">
+            @if(!onCategory()) {
+                @for (singleNews of topNews(); track singleNews) {
+                    <app-single-news [singleNews]="singleNews" />
+                    <br><br>
+                }
+            } @else {
+                @for (singleNews of categoryNews(); track singleNews) {
+                    <app-single-news [singleNews]="singleNews" />
+                    <br><br>
+                }
             }
-        } @else {
-            @for (singleNews of categoryNews(); track singleNews) {
-                <app-single-news [singleNews]="singleNews" />
-                <br><br>
-            }
-        }
-    </div>
+        </div>
+    } @else {
+        <div class="error-container">
+            <img src="assets/deadface.png">
+            <p>There is an error fetching the news. Try again later.</p>
+        </div>
+    }
 </div>

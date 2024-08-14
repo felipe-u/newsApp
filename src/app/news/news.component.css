@@ -1,9 +1,25 @@
 .container {
-    display: flex;
-    margin-top: 50px;
+  display: flex;
+  margin-top: 50px;
 }
 
 .news-container {
-    margin: 0 auto;
-    text-align: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.error-container {
+  margin: 0 auto;
+  display: grid;
+}
+
+.error-container img {
+  margin: 40px auto;
+  width: 200px;
+}
+
+.error-container p {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bolder;
 }

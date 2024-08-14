@@ -17,6 +17,7 @@ export class NewsComponent implements OnInit {
   onCategory = input.required<boolean>();
   category = input.required<string>();
   categoryNews = signal<News[]>(undefined);
+  isThereAnError = false;
 
   ngOnInit(): void {
     if (!this.onCategory()) {
@@ -24,6 +25,10 @@ export class NewsComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.topNews.set(data);
+            this.isThereAnError = false;
+          },
+          error: () => {
+            this.isThereAnError = true;
           }
         })
     } else {
@@ -31,6 +36,10 @@ export class NewsComponent implements OnInit {
         .subscribe({
           next: (data) => {
             this.categoryNews.set(data);
+            this.isThereAnError = false;
+          },
+          error: () => {
+            this.isThereAnError = true;
           }
         });
     }
