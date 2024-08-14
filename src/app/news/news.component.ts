@@ -16,40 +16,26 @@ export class NewsComponent implements OnInit {
   topNews = signal<News[]>(undefined);
   onCategory = input.required<boolean>();
   category = input.required<string>();
-  categoryNews = signal<News[]>(undefined);
-  isThereAnError = false;
-  onFetching: boolean;
+  categoryNews = this.newsService.news;
+  isThereAnError = this.newsService.isThereAnError;
+  onFetching = this.newsService.onFetching;
 
   ngOnInit(): void {
-    this.onFetching = true;
+    this.onFetching.set(true);
     console.log('fetching');
     if (!this.onCategory()) {
       this.newsService.fetchTopNews()
         .subscribe({
           next: (data) => {
             this.topNews.set(data);
-            this.isThereAnError = false;
-            this.onFetching = false;
+            this.isThereAnError.set(false);
+            this.onFetching.set(false);
           },
           error: () => {
-            this.isThereAnError = true;
-            this.onFetching = false;
+            this.isThereAnError.set(true);
+            this.onFetching.set(false);
           }
         })
-    } else {
-      this.newsService.fetchNewsForCategory(this.category())
-        .subscribe({
-          next: (data) => {
-            this.categoryNews.set(data);
-            this.isThereAnError = false;
-            this.onFetching = false;
-
-          },
-          error: () => {
-            this.isThereAnError = true;
-            this.onFetching = false;
-          }
-        });
     }
   }
 }
@@ -57,5 +43,20 @@ export class NewsComponent implements OnInit {
 export const resolveCategory: ResolveFn<string> = (
   activatedRoute, routerState
 ) => {
-  return activatedRoute.queryParamMap.get('category');
+  const newsService = inject(NewsService);
+  const category = activatedRoute.queryParamMap.get('category');
+  newsService.fetchNewsForCategory(category)
+    .subscribe({
+      next: () => {
+        newsService.isThereAnError.set(false);
+        newsService.onFetching.set(false);
+
+      },
+      error: () => {
+        newsService.isThereAnError.set(true);
+        newsService.onFetching.set(false);
+      }
+    });
+
+  return category;
 }

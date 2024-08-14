@@ -24,6 +24,7 @@ export const routes: Routes = [
         data: {
             onCategory: true
         },
+        runGuardsAndResolvers: 'always',
         resolve: {
             category: resolveCategory
         }
