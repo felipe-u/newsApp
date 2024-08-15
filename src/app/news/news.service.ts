@@ -15,28 +15,23 @@ export class NewsService {
     isThereAnError = signal<boolean>(undefined);
     onFetching = signal<boolean>(undefined);
 
-    fetchTopNews() {
-        return this.httpClient.get<{ data: any }>
-            (apiEndpoint + 'top' + apiToken + '&locale=us&limit=3&language=' + language)
+    private fetchNews(endpoint: string, params: string) {
+        return this.httpClient.get<{ data: any }>(`${apiEndpoint}${endpoint}${apiToken}${params}&limit=3&language=${language}`)
             .pipe(
                 map((news) => news.data),
                 tap((news) => this.news.set(news))
             )
+    }
+
+    fetchTopNews() {
+        return this.fetchNews('top', '');
     }
 
     fetchNewsForCategory(category: string) {
-        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&categories=' + category + '&limit=3&language=' + language)
-            .pipe(
-                map((news) => news.data),
-                tap((news) => this.news.set(news))
-            )
+        return this.fetchNews('all', `&categories=${category}`);
     }
 
     fetchNewsForSearchTerm(searchTerm: string) {
-        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&search=' + searchTerm + '&limit=3&language=' + language)
-            .pipe(
-                map((news) => news.data),
-                tap((news) => this.news.set(news))
-            )
+        return this.fetchNews('all', `&search=${searchTerm}`);
     }
 }
