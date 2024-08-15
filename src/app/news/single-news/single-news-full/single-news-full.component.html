@@ -4,4 +4,8 @@
     <hr>
     <img [src]="news().image_url" alt="">
     <p id="newsDesc">{{ news().description }}</p>
+    <hr>
+    <div class="url-container">
+        <a [href]="news().url" target="_blank">See Full Story.</a>
+    </div>
 </div>

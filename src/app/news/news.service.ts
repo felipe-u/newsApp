@@ -4,6 +4,7 @@ import { map, tap } from 'rxjs';
 
 const apiEndpoint = 'https://api.thenewsapi.com/v1/news/';
 const apiToken = '?api_token=h1Un3ZbRws1mh8yVg8ebFdwoJdiQytMylHE01vnP';
+const language = 'en';
 
 @Injectable({ providedIn: 'root' })
 export class NewsService {
@@ -16,7 +17,7 @@ export class NewsService {
 
     fetchTopNews() {
         return this.httpClient.get<{ data: any }>
-            (apiEndpoint + 'top' + apiToken + '&locale=us&limit=3')
+            (apiEndpoint + 'top' + apiToken + '&locale=us&limit=3&language=' + language)
             .pipe(
                 map((news) => news.data),
                 tap((news) => this.news.set(news))
@@ -24,7 +25,7 @@ export class NewsService {
     }
 
     fetchNewsForCategory(category: string) {
-        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&categories=' + category + '&limit=3')
+        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&categories=' + category + '&limit=3&language=' + language)
             .pipe(
                 map((news) => news.data),
                 tap((news) => this.news.set(news))
@@ -32,7 +33,7 @@ export class NewsService {
     }
 
     fetchNewsForSearchTerm(searchTerm: string) {
-        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&search=' + searchTerm + '&limit=3')
+        return this.httpClient.get<{ data: any }>(apiEndpoint + 'all' + apiToken + '&search=' + searchTerm + '&limit=3&language=' + language)
             .pipe(
                 map((news) => news.data),
                 tap((news) => this.news.set(news))
