@@ -13,6 +13,7 @@ import { ResolveFn } from '@angular/router';
 export class SingleNewsFullComponent {
   newsId = input.required<string>();
   private newsService = inject(NewsService);
+
   news = computed(
     () => this.newsService.loadedNews().find(
       singleN => singleN.uuid === this.newsId()
@@ -20,13 +21,7 @@ export class SingleNewsFullComponent {
   );
 
   get newsPubDate() {
-    return new Date(Date.parse(this.news().published_at));
-  }
-
-  onSearch() {
-    console.log(this.newsService.loadedNews().find(
-      singleN => singleN.uuid === this.newsId()
-    ).description);
+    return new Date(Date.parse(this.news()?.published_at ?? ''));
   }
 }
 
@@ -34,10 +29,9 @@ export const resolveTitle: ResolveFn<any> = (
   activatedRoute, routerState
 ) => {
   const newsService = inject(NewsService);
-  const news = computed(
-    () => newsService.loadedNews().find(
-      singleN => singleN.uuid === activatedRoute.paramMap.get('newsId')
-    )
+  const newsId = activatedRoute.paramMap.get('newsId')
+  const news = newsService.loadedNews().find(
+    singleN => singleN.uuid === newsId
   )
-  return news().title;
+  return news?.title ?? 'No title available';
 }
