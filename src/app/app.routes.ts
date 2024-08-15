@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { NewsComponent, resolveCategory, resolveSearch } from "./news/news.component";
-import { SingleNewsFullComponent } from "./news/single-news/single-news-full/single-news-full.component";
+import { resolveTitle, SingleNewsFullComponent } from "./news/single-news/single-news-full/single-news-full.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 
 export const routes: Routes = [
@@ -42,7 +42,8 @@ export const routes: Routes = [
     },
     {
         path: 'news/:newsId',
-        component: SingleNewsFullComponent
+        component: SingleNewsFullComponent,
+        title: resolveTitle
     },
     {
         path: '**',

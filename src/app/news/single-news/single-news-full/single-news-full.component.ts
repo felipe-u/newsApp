@@ -1,7 +1,7 @@
-import { Component, computed, inject, input, Input } from '@angular/core';
-import { News } from '../../news.model';
+import { Component, computed, inject, input } from '@angular/core';
 import { NewsService } from '../../news.service';
 import { DatePipe } from '@angular/common';
+import { ResolveFn } from '@angular/router';
 
 @Component({
   selector: 'app-single-news-full',
@@ -14,7 +14,7 @@ export class SingleNewsFullComponent {
   newsId = input.required<string>();
   private newsService = inject(NewsService);
   news = computed(
-    ()=> this.newsService.loadedNews().find(
+    () => this.newsService.loadedNews().find(
       singleN => singleN.uuid === this.newsId()
     )
   );
@@ -28,4 +28,16 @@ export class SingleNewsFullComponent {
       singleN => singleN.uuid === this.newsId()
     ).description);
   }
+}
+
+export const resolveTitle: ResolveFn<any> = (
+  activatedRoute, routerState
+) => {
+  const newsService = inject(NewsService);
+  const news = computed(
+    () => newsService.loadedNews().find(
+      singleN => singleN.uuid === activatedRoute.paramMap.get('newsId')
+    )
+  )
+  return news().title;
 }
